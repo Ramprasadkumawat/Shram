@@ -2,51 +2,49 @@
 
 namespace App\Http\Controllers\Api\V1\Owner;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\Api\V1\UserResource;
 use App\Models\User;
+use App\Http\Resources\Api\V1\UserResource;
+use App\Http\Requests\Api\V1\StoreUserRequest;
+use App\Traits\MessageHelper;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    use MessageHelper;
 
     /**
-     * Store a newly created resource in storage.
+     * Get users by type.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function index(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        $user = User::findOrFail($id);
-        return new UserResource($user);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        ini_set('memory_limit', '512M');
+        if (!empty($request->type)) {
+            $staffUsers = User::where('type', $request->type)
+                ->get();
+            $data = UserResource::collection($staffUsers);
+    
+            return response()->json([
+                'status' => $this->msg('success', 'STATUS'),
+                'code' => $this->msg('200', 'HTTP'),
+                'message' => $this->msg('staff_list_success', 'USERS'), // You can define this in constants
+                'data' => $data,
+            ]);
+        }else{
+            return response()->json([
+                'status' => $this->msg('failure', 'STATUS'),
+                'code' => $this->msg('422', 'HTTP'),
+                'message' => $this->msg('validation_errors', 'USERS'),
+                'errors' => [
+                    'type' => [$this->msg('type_is_required', 'USERS')],
+                ],
+            ], 422);
+        }
     }
 }

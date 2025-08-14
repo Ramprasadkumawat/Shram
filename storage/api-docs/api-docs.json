@@ -1,0 +1,1191 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Shram API",
+        "description": "API documentation for the Shram project",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000/api/v1",
+            "description": "Local API Server"
+        }
+    ],
+    "paths": {
+        "/staff-list": {
+            "get": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "Get list of staff",
+                "operationId": "1c73e04ed930a687126db58f4ba13de8",
+                "responses": {
+                    "200": {
+                        "description": "Staff list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Register a new user",
+                "description": "Register endpoint",
+                "operationId": "b3f2030b1de2ca316d182d6dc5f4e7ce",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthSuccessResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login user",
+                "description": "Login endpoint",
+                "operationId": "0f98859450b3c3b8c0c3cfdba900010c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LoginSuccessResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Logout from current device",
+                "description": "Logout endpoint",
+                "operationId": "267c3d089ac25c9d6036f7776deec27a",
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged out",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MessageResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/logout-all": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Logout from all devices",
+                "description": "Logout all endpoint",
+                "operationId": "75dca55e46bc995994f5a3b83a359d72",
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged out from all devices",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MessageResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/me": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Get authenticated user profile",
+                "description": "Get user profile endpoint",
+                "operationId": "39a24d85ad01be4e7b28e47057305fd6",
+                "responses": {
+                    "200": {
+                        "description": "Authenticated user data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/owner/posts": {
+            "get": {
+                "tags": [
+                    "Owner Posts"
+                ],
+                "summary": "List all posts for the authenticated owner",
+                "description": "List posts endpoint",
+                "operationId": "4b7a74d747dcc34a0a72fc1e4fa80e0d",
+                "responses": {
+                    "200": {
+                        "description": "Posts retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Owner Posts"
+                ],
+                "summary": "Create a new owner post",
+                "description": "Create post endpoint",
+                "operationId": "aec1a93f1fe9c9aca899e9f29a32a8e5",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreatePostRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Owner post created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostCreationResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/owner/users": {
+            "get": {
+                "tags": [
+                    "Owner Users"
+                ],
+                "summary": "Get users by type",
+                "description": "Get users endpoint",
+                "operationId": "e04d152327e8f03b4f561762ccfd362f",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "User type filter",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "staff"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Users retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/owner/posts/{id}": {
+            "get": {
+                "tags": [
+                    "Owner Posts"
+                ],
+                "summary": "Show a specific post",
+                "description": "Show post endpoint",
+                "operationId": "b59c8ad912dfb6e60a4cf78b2eba8889",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Post retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostShowResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Post not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Owner Posts"
+                ],
+                "summary": "Update a specific post",
+                "description": "Update post endpoint",
+                "operationId": "e40149a9ab7e473cb0ba898eddc7cf28",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdatePostRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Post updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostUpdateResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Post not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Owner Posts"
+                ],
+                "summary": "Delete a specific post",
+                "description": "Delete post endpoint",
+                "operationId": "410093cb30ef32d1818df5621e3cfcc5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Post deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostDeleteResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Post not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "LoginRequest": {
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "description": "Login request schema",
+                        "type": "string",
+                        "format": "email",
+                        "example": "user@example.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "password",
+                        "example": "123456"
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterRequest": {
+                "required": [
+                    "first_name",
+                    "mobile_number",
+                    "aadhar_number",
+                    "type",
+                    "email",
+                    "password",
+                    "password_confirmation"
+                ],
+                "properties": {
+                    "first_name": {
+                        "description": "Register request schema",
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "example": "Doe"
+                    },
+                    "age": {
+                        "type": "integer",
+                        "example": 30
+                    },
+                    "mobile_number": {
+                        "type": "string",
+                        "example": "8989557618"
+                    },
+                    "aadhar_number": {
+                        "type": "string",
+                        "example": "422557865558"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "john@example.com"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "owner"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "password",
+                        "example": "123456"
+                    },
+                    "password_confirmation": {
+                        "type": "string",
+                        "format": "password",
+                        "example": "123456"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "properties": {
+                    "id": {
+                        "description": "User schema",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "first_name": {
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "example": "Doe"
+                    },
+                    "age": {
+                        "type": "integer",
+                        "example": 30
+                    },
+                    "mobile_number": {
+                        "type": "string",
+                        "example": "8989557618"
+                    },
+                    "aadhar_number": {
+                        "type": "string",
+                        "example": "422557865558"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "john@example.com"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "owner"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-08-13T08:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-08-13T08:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "OwnerPost": {
+                "properties": {
+                    "id": {
+                        "description": "Owner Post schema",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "owner_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Need 5 Labourers for Construction"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Detailed job description here"
+                    },
+                    "required_labours": {
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "location": {
+                        "type": "string",
+                        "example": "Mumbai"
+                    },
+                    "start_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-08-20"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-08-25"
+                    },
+                    "work_type": {
+                        "type": "string",
+                        "enum": [
+                            "daily",
+                            "hourly"
+                        ],
+                        "example": "daily"
+                    },
+                    "wage_per_day": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 500
+                    },
+                    "wage_per_hour": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 70
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "open",
+                            "closed",
+                            "in_progress"
+                        ],
+                        "example": "open"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-08-13T08:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-08-13T08:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "CreatePostRequest": {
+                "required": [
+                    "title",
+                    "required_labours",
+                    "location",
+                    "work_type"
+                ],
+                "properties": {
+                    "title": {
+                        "description": "Create Post Request schema",
+                        "type": "string",
+                        "maxLength": 150,
+                        "example": "Need 5 Labourers for Construction"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Detailed job description here",
+                        "nullable": true
+                    },
+                    "required_labours": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "example": 5
+                    },
+                    "location": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "Mumbai"
+                    },
+                    "start_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-08-20",
+                        "nullable": true
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-08-25",
+                        "nullable": true
+                    },
+                    "work_type": {
+                        "type": "string",
+                        "enum": [
+                            "daily",
+                            "hourly"
+                        ],
+                        "example": "daily"
+                    },
+                    "wage_per_day": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 500,
+                        "nullable": true
+                    },
+                    "wage_per_hour": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 70,
+                        "nullable": true
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "open",
+                            "closed",
+                            "in_progress"
+                        ],
+                        "example": "open",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "UpdatePostRequest": {
+                "properties": {
+                    "title": {
+                        "description": "Update Post Request schema",
+                        "type": "string",
+                        "maxLength": 150,
+                        "example": "Updated Job Title"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Updated job description",
+                        "nullable": true
+                    },
+                    "required_labours": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "example": 10
+                    },
+                    "location": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "Delhi"
+                    },
+                    "start_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-09-01",
+                        "nullable": true
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-09-10",
+                        "nullable": true
+                    },
+                    "work_type": {
+                        "type": "string",
+                        "enum": [
+                            "daily",
+                            "hourly"
+                        ],
+                        "example": "hourly"
+                    },
+                    "wage_per_day": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 600,
+                        "nullable": true
+                    },
+                    "wage_per_hour": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 80,
+                        "nullable": true
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "open",
+                            "closed",
+                            "in_progress"
+                        ],
+                        "example": "in_progress",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "AuthSuccessResponse": {
+                "properties": {
+                    "status": {
+                        "description": "Generic auth success response",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "code": {
+                        "type": "string",
+                        "example": "201"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Registration successful"
+                    },
+                    "token": {
+                        "type": "string",
+                        "example": "1|abcdef123456"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                },
+                "type": "object"
+            },
+            "LoginSuccessResponse": {
+                "properties": {
+                    "status": {
+                        "description": "Login success response",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Login successful"
+                    },
+                    "token": {
+                        "type": "string",
+                        "example": "1|vJ....tokenexample"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                },
+                "type": "object"
+            },
+            "ErrorResponse": {
+                "properties": {
+                    "status": {
+                        "description": "Error response schema",
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "code": {
+                        "type": "string",
+                        "example": "422"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Validation failed"
+                    },
+                    "errors": {
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "UnauthorizedResponse": {
+                "properties": {
+                    "status": {
+                        "description": "Unauthorized response schema",
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "error": {
+                        "type": "string",
+                        "example": "Unauthorized"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "The provided credentials are incorrect"
+                    }
+                },
+                "type": "object"
+            },
+            "NotFoundResponse": {
+                "properties": {
+                    "status": {
+                        "description": "Not found response schema",
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Post not found"
+                    }
+                },
+                "type": "object"
+            },
+            "MessageResponse": {
+                "properties": {
+                    "message": {
+                        "description": "Generic message response",
+                        "type": "string",
+                        "example": "Operation successful"
+                    }
+                },
+                "type": "object"
+            },
+            "PostCreationResponse": {
+                "properties": {
+                    "status": {
+                        "description": "Post creation success response",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Post created successfully"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/OwnerPost"
+                    }
+                },
+                "type": "object"
+            },
+            "PostListResponse": {
+                "properties": {
+                    "status": {
+                        "description": "Post list response",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Posts retrieved successfully"
+                    },
+                    "data": {
+                        "properties": {
+                            "current_page": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/OwnerPost"
+                                }
+                            },
+                            "per_page": {
+                                "type": "integer",
+                                "example": 10
+                            },
+                            "total": {
+                                "type": "integer",
+                                "example": 25
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "PostShowResponse": {
+                "properties": {
+                    "status": {
+                        "description": "Post show response",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Post retrieved successfully"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/OwnerPost"
+                    }
+                },
+                "type": "object"
+            },
+            "PostUpdateResponse": {
+                "properties": {
+                    "status": {
+                        "description": "Post update response",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Post updated successfully"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/OwnerPost"
+                    }
+                },
+                "type": "object"
+            },
+            "PostDeleteResponse": {
+                "properties": {
+                    "status": {
+                        "description": "Post delete response",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Post deleted successfully"
+                    }
+                },
+                "type": "object"
+            },
+            "UserListResponse": {
+                "properties": {
+                    "status": {
+                        "description": "User list response",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "code": {
+                        "type": "string",
+                        "example": "200"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Users retrieved successfully"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/User"
+                        }
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Staff",
+            "description": "Staff"
+        },
+        {
+            "name": "Authentication",
+            "description": "Authentication"
+        },
+        {
+            "name": "Owner Posts",
+            "description": "Owner Posts"
+        },
+        {
+            "name": "Owner Users",
+            "description": "Owner Users"
+        }
+    ],
+    "security": [
+        {
+            "sanctum": []
+        }
+    ]
+}
