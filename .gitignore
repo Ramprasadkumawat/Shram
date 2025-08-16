@@ -11,9 +11,10 @@
 .env
 .env.*
 .env.backup
-# .env.production
+.env.production
 .env.local
 .env.testing
+/public/.htaccess
 
 # Laravel specific
 /bootstrap/compiled.php
