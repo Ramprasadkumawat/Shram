@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\Owner\UserController;
 use App\Http\Controllers\Api\V1\Owner\PostController;
-use App\Http\Controllers\API\V1\Common\AuthController;
+use App\Http\Controllers\API\V1\Common\AuthController; 
     
     Route::middleware('api')
     ->group(function () {
