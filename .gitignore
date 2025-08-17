@@ -15,6 +15,7 @@
 .env.local
 .env.testing
 /public/.htaccess
+/bootstrap/app.php
 
 # Laravel specific
 /bootstrap/compiled.php
