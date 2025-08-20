@@ -1,10 +1,32 @@
-    <?php
+<?php
 
-    use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Admin\V1\AuthController;
+use App\Http\Controllers\Admin\V1\DashboardController;
+use App\Http\Controllers\Admin\V1\LayoutController;
+use App\Http\Controllers\Admin\V1\AccountController;
 
-    // Route::prefix('admin')->group(function () {
-    //     Route::get('/dashboard', function () {
-    //         return 'Admin Dashboard';
-    //     });
-    //     Route::get('/users', 'Admin\UserController@index');
-    // });
+// Public routes (no authentication required)
+// Route::get('/', function () {
+//     return redirect()->route('admin.dashboard');
+// });
+
+// Single login route
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+
+// Route::post('/login', function () {
+//     print_r("hello ji...");
+//     exit;
+// })->name('admin.login.post');
+
+// Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+// Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');

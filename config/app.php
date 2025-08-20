@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\ServiceProvider;
+
 return [
 
     /*
@@ -123,13 +126,15 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    // 'providers' => [
+    'providers' => [
         // ... existing providers
 
         // App\Providers\RouteServiceProvider::class,
 
         // ✅ Add your custom provider here
-        // App\Providers\CustomRouteServiceProvider::class,
-    // ],
+        App\Providers\CustomRouteServiceProvider::class,
+        App\Providers\MenuServiceProvider::class,
+        Illuminate\Filesystem\FilesystemServiceProvider::class,
+    ],
 
 ];

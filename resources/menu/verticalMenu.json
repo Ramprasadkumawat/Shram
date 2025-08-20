@@ -1,0 +1,123 @@
+{
+  "menu": [
+    {
+      "url": "/dashboard",
+      "name": "Dashboards",
+      "icon": "menu-icon tf-icons bx bx-home-circle",
+      "slug": "dashboard",
+      "badge": [
+        "danger",
+        "5"
+      ],
+      "submenu": [
+        {
+          "url": "/dashboard",
+          "name": "Analytics",
+          "slug": "dashboard-analytics"
+        }
+      ]
+    },
+    {
+      "name": "Layouts",
+      "icon": "menu-icon tf-icons bx bx-layout",
+      "slug": "layouts",
+      "submenu": [
+        {
+          "url": "/layouts/without-menu",
+          "name": "Without menu",
+          "slug": "layouts-without-menu"
+        },
+        {
+          "url": "/layouts/without-navbar",
+          "name": "Without navbar",
+          "slug": "layouts-without-navbar"
+        },
+        {
+          "url": "/layouts/container",
+          "name": "Container",
+          "slug": "layouts-container"
+        },
+        {
+          "url": "/layouts/fluid",
+          "name": "Fluid",
+          "slug": "layouts-fluid"
+        },
+        {
+          "url": "/layouts/blank",
+          "name": "Blank",
+          "slug": "layouts-blank",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "name": "Account Settings",
+      "icon": "menu-icon tf-icons bx bx-user",
+      "slug": "account-settings",
+      "submenu": [
+        {
+          "url": "/account/settings",
+          "name": "Account",
+          "slug": "account-settings-account"
+        },
+        {
+          "url": "/account/notifications",
+          "name": "Notifications",
+          "slug": "account-settings-notifications"
+        },
+        {
+          "url": "/account/connections",
+          "name": "Connections",
+          "slug": "account-settings-connections"
+        },
+        {
+          "url": "/account/billing",
+          "name": "Billing",
+          "slug": "account-settings-billing"
+        },
+        {
+          "url": "/account/security",
+          "name": "Security",
+          "slug": "account-settings-security"
+        }
+      ]
+    },
+    {
+      "name": "Authentication",
+      "icon": "menu-icon tf-icons bx bx-lock-open-alt",
+      "slug": "authentication",
+      "submenu": [
+        {
+          "url": "/auth/login",
+          "name": "Login",
+          "slug": "auth-login"
+        },
+        {
+          "url": "/auth/register",
+          "name": "Register",
+          "slug": "auth-register"
+        },
+        {
+          "url": "/auth/forgot-password",
+          "name": "Forgot Password",
+          "slug": "auth-forgot-password"
+        },
+        {
+          "url": "/auth/reset-password",
+          "name": "Reset Password",
+          "slug": "auth-reset-password"
+        },
+        {
+          "url": "/auth/verify-email",
+          "name": "Verify Email",
+          "slug": "auth-verify-email"
+        },
+        {
+          "url": "/auth/two-steps",
+          "name": "Two Steps",
+          "slug": "auth-two-steps"
+        }
+      ]
+    }
+  ]
+}

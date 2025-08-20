@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email')->unique()->index();
             $table->timestamp('email_verified_at')->nullable()->index();
             $table->string('password');
-            $table->enum('type', ['staff', 'owner'])->comment('0: Owner, 1: Staff')->index();
+            $table->enum('type', ['staff', 'owner', 'admin'])->comment('0: Owner, 1: Staff, 2: Admin')->index();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
