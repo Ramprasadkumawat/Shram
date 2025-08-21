@@ -45,6 +45,22 @@ $container = ($container ?? 'container-xxl');
           <div class="{{$container}} flex-grow-1 container-p-y">
             @endif
 
+            @foreach (['success', 'error', 'warning', 'info'] as $msg)
+                @if(session($msg))
+                    <div class="alert alert-{{ $msg }} alert-dismissible fade show m-3" role="alert" id="alert-message">
+                        {{ session($msg) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+            @endforeach
+
+            <script>
+                setTimeout(() => {
+                    let msg = document.getElementById('alert-message');
+                    if (msg) msg.style.display = 'none';
+                }, 3000); // auto hide after 3s
+            </script>
+
             @yield('content')
 
           </div>

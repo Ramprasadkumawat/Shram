@@ -14,6 +14,17 @@
 <script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
 @endsection
 
+@if(session('success'))
+    <div class="alert alert-success" id="success-message">
+        {{ session('success') }}
+    </div>
+    <script>
+        setTimeout(() => {
+            document.getElementById('success-message').style.display = 'none';
+        }, 3000); // 3 seconds
+    </script>
+@endif
+
 @section('content')
 <div class="row">
   <div class="col-lg-8 mb-4 order-0">
