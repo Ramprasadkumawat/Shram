@@ -10,7 +10,7 @@ class StaffOwnerSeeder extends Seeder
 {
     public function run(): void
     {
-        User::truncate();
+        User::whereIn('type', ['staff', 'owner', 'admin'])->delete();
 
         $users = [
             [
