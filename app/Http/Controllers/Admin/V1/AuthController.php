@@ -38,7 +38,9 @@ class AuthController extends Controller
 
         if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
-            session()->flash('success', 'Successfully logged in!');
+
+            $user = Auth::guard('admin')->user();
+            session()->flash('success', 'Successfully logged in!,' . $user->full_name . '!');
             return redirect()->intended('/admin/dashboard');
         }
 

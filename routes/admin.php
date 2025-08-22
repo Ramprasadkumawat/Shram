@@ -15,6 +15,9 @@ use App\Http\Controllers\Admin\V1\AccountController;
 // Single login route
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+// Route::post('/login', function (){
+//      echo "hello ji..."; exit;
+// })->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 

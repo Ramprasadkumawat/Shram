@@ -22,7 +22,7 @@
             <form method="POST" action="{{ route('login.post') }}" class="space-y-6">
                 @csrf
 
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <!-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
 
                 
                 <!-- Email Field -->
