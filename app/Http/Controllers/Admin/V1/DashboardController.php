@@ -11,7 +11,7 @@ class DashboardController extends Controller
     {
         $pageConfigs = [
             'pageHeader' => false,
-            'contentLayout' => 'content-left-sidebar',
+            'contentLayout' => 'content-left-sidebar', 
             'pageClass' => 'dashboard-analytics'
         ];
 
