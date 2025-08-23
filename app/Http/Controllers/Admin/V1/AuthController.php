@@ -26,7 +26,7 @@ class AuthController extends Controller
     /**
      * Handle admin login request
      */
-    public function login(Request $request) 
+    public function login(Request $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -38,9 +38,7 @@ class AuthController extends Controller
 
         if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
-
-            $user = Auth::guard('admin')->user();
-            session()->flash('success', 'Successfully logged in!,' . $user->full_name . '!');
+            session()->flash('success', 'Successfully logged in!');
             return redirect()->intended('/admin/dashboard');
         }
 
