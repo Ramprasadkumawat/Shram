@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\V1\AuthController;
 use App\Http\Controllers\Admin\V1\DashboardController;
+use App\Http\Controllers\Admin\V1\UserController;
 use App\Http\Controllers\Admin\V1\LayoutController;
 use App\Http\Controllers\Admin\V1\AccountController;
 
@@ -22,7 +23,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 Route::middleware(['auth:admin'])->group(function () {
-    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+    Route::resource('users', UserController::class);
 });
 
 

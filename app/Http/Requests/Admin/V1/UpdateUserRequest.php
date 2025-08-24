@@ -21,7 +21,7 @@ class UpdateUserRequest extends FormRequest
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($userId)],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
-            'type' => ['required', 'string', 'in:admin,user'],
+            'type' => ['required', 'string', Rule::in(['admin', 'staff', 'owner'])],
             'mobile_number' => ['nullable', 'string', 'max:20'],
             'aadhar_number' => ['nullable', 'string', 'max:12'],
             'age' => ['nullable', 'integer', 'min:0'],

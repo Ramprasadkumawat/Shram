@@ -1,7 +1,7 @@
 {
   "menu": [
     {
-      "url": "/dashboard",
+      "url": "/admin/dashboard",
       "name": "Dashboards",
       "icon": "menu-icon tf-icons bx bx-home-circle",
       "slug": "dashboard",
@@ -11,9 +11,26 @@
       ],
       "submenu": [
         {
-          "url": "/dashboard",
+          "url": "/admin/dashboard",
           "name": "Analytics",
           "slug": "dashboard-analytics"
+        }
+      ]
+    },
+    {
+      "url": "/admin/users",
+      "name": "User-management",
+      "icon": "menu-icon tf-icons bx bx-user-circle",
+      "slug": "usermanagement",
+      "badge": [
+        "danger",
+        "5"
+      ],
+      "submenu": [
+        {
+          "url": "/admin/users",
+          "name": "Users",
+          "slug": "user-management"
         }
       ]
     },

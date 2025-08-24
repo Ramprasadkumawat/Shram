@@ -18,7 +18,7 @@ class CustomRouteServiceProvider extends ServiceProvider
             // ✅ Correctly namespaced + grouped admin routes
             Route::middleware('web')
                 ->prefix('admin')
-                ->as('admin.') // ✅ This is the correct method for naming prefix
+                // ->as('admin.') // ✅ This is the correct method for naming prefix
                 ->group(base_path('routes/admin.php'));
 
         // Load API v1 routes with proper middleware

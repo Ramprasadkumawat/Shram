@@ -8,10 +8,10 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Edit User</h5>
-        <a href="{{ route('admin.users.index') }}" class="btn btn-primary">Back to Users</a>
+        <a href="{{ route('users.index') }}" class="btn btn-primary">Back to Users</a>
     </div>
     <div class="card-body">
-        <form method="POST" action="{{ route('admin.users.update', $user->id) }}">
+        <form method="POST" action="{{ route('users.update', $user->id) }}">
             @csrf
             @method('PUT')
             <div class="row">
@@ -62,7 +62,8 @@
                     <select id="type" name="type" class="select2 form-select">
                         <option value="">Select User Type</option>
                         <option value="admin" {{ (old('type', $user->type) == 'admin') ? 'selected' : '' }}>Admin</option>
-                        <option value="user" {{ (old('type', $user->type) == 'user') ? 'selected' : '' }}>User</option>
+                        <option value="staff" {{ (old('type', $user->type) == 'staff') ? 'selected' : '' }}>Staff</option>
+                        <option value="owner" {{ (old('type', $user->type) == 'owner') ? 'selected' : '' }}>Owner</option>
                     </select>
                     @error('type')
                         <div class="text-danger">{{ $message }}</div>

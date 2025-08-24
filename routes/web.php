@@ -7,59 +7,59 @@ Route::get('/', function () {
 });
 
 // Admin Routes with proper session middleware
-use App\Http\Controllers\Admin\V1\AuthController;
-use App\Http\Controllers\Admin\V1\DashboardController;
-use App\Http\Controllers\Admin\V1\LayoutController;
-use App\Http\Controllers\Admin\V1\AccountController;
+// use App\Http\Controllers\Admin\V1\AuthController;
+// use App\Http\Controllers\Admin\V1\DashboardController;
+// use App\Http\Controllers\Admin\V1\LayoutController;
+// use App\Http\Controllers\Admin\V1\AccountController;
 
 // Admin public routes (no authentication required)
-Route::get('/admin', function () {
-    return redirect()->route('admin.dashboard');
-});
+// Route::get('/admin', function () {
+//     return redirect()->route('admin.dashboard');
+// });
 
 // Admin login routes
-Route::get('/admin/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/admin/login', [AuthController::class, 'login'])->name('login.post');
-Route::post('/admin/logout', [AuthController::class, 'logout'])->name('logout');
+// Route::get('/admin/login', [AuthController::class, 'showLoginForm'])->name('login');
+// Route::post('/admin/login', [AuthController::class, 'login'])->name('login.post');
+// Route::post('/admin/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Test login route without form request validation
-Route::get('/admin/login-test', function() {
-    return view('admin.auth.login-test');
-})->name('login.test.form');
-Route::post('/admin/login-test', [AuthController::class, 'loginTest'])->name('login.test');
+// Route::get('/admin/login-test', function() {
+//     return view('admin.auth.login-test');
+// })->name('login.test.form');
+// Route::post('/admin/login-test', [AuthController::class, 'loginTest'])->name('login.test');
 
 // Test route for debugging
-Route::get('/admin/test', function() {
-    return response()->json([
-        'message' => 'Admin test route working',
-        'session_id' => session()->getId(),
-        'csrf_token' => csrf_token()
-    ]);
-})->name('admin.test');
+// Route::get('/admin/test', function() {
+//     return response()->json([
+//         'message' => 'Admin test route working',
+//         'session_id' => session()->getId(),
+//         'csrf_token' => csrf_token()
+//     ]);
+// })->name('admin.test');
 
 // Admin protected routes (require admin authentication)
-Route::middleware('auth')->prefix('admin')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/users', [\App\Http\Controllers\Admin\UserController::class, 'index']);
+// Route::middleware('auth')->prefix('admin')->group(function () {
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    // Route::get('/users', [\App\Http\Controllers\Admin\UserController::class, 'index']);
 
     // Layout routes
-    Route::prefix('layouts')->group(function () {
-        Route::get('/without-menu', [LayoutController::class, 'withoutMenu'])->name('admin.layouts.without-menu');
-        Route::get('/without-navbar', [LayoutController::class, 'withoutNavbar'])->name('admin.layouts.without-navbar');
-        Route::get('/container', [LayoutController::class, 'container'])->name('admin.layouts.container');
-        Route::get('/fluid', [LayoutController::class, 'fluid'])->name('admin.layouts.fluid');
-        Route::get('/blank', [LayoutController::class, 'blank'])->name('admin.layouts.blank');
-    });
+    // Route::prefix('layouts')->group(function () {
+    //     Route::get('/without-menu', [LayoutController::class, 'withoutMenu'])->name('admin.layouts.without-menu');
+    //     Route::get('/without-navbar', [LayoutController::class, 'withoutNavbar'])->name('admin.layouts.without-navbar');
+    //     Route::get('/container', [LayoutController::class, 'container'])->name('admin.layouts.container');
+    //     Route::get('/fluid', [LayoutController::class, 'fluid'])->name('admin.layouts.fluid');
+    //     Route::get('/blank', [LayoutController::class, 'blank'])->name('admin.layouts.blank');
+    // });
 
     // Account settings routes
-    Route::prefix('account')->group(function () {
-        Route::get('/settings', [AccountController::class, 'account'])->name('admin.account.settings');
-        Route::get('/notifications', [AccountController::class, 'notifications'])->name('admin.account.notifications');
-        Route::get('/connections', [AccountController::class, 'connections'])->name('admin.account.connections');
-        Route::get('/billing', [AccountController::class, 'billing'])->name('admin.account.billing');
-        Route::get('/security', [AccountController::class, 'security'])->name('admin.account.security');
-    });
-});
+//     Route::prefix('account')->group(function () {
+//         Route::get('/settings', [AccountController::class, 'account'])->name('admin.account.settings');
+//         Route::get('/notifications', [AccountController::class, 'notifications'])->name('admin.account.notifications');
+//         Route::get('/connections', [AccountController::class, 'connections'])->name('admin.account.connections');
+//         Route::get('/billing', [AccountController::class, 'billing'])->name('admin.account.billing');
+//         Route::get('/security', [AccountController::class, 'security'])->name('admin.account.security');
+//     });
+// });
 
 // Commenting out all problematic routes that don't have controllers
 /*
