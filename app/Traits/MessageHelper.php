@@ -2,21 +2,17 @@
 
 namespace App\Traits;
 
-use App\Constants\CommonConstants;
-use ReflectionClass;
+use App\Constants\ApiConstants; // Import ApiConstants
 
 trait MessageHelper
 {
-    public function msg(string $key, string $module = 'USERS'): string
+    public function msg(string $constantName): string
     {
-        $constants = (new ReflectionClass(CommonConstants::class))->getConstants();
-
-        if (!array_key_exists($module, $constants)) {
-            return "Module '{$module}' not found in CommonConstants.";
+        if (defined("\\App\\Constants\\ApiConstants::{$constantName}")) {
+            return constant("\\App\\Constants\\ApiConstants::{$constantName}");
         }
 
-        $moduleMessages = $constants[$module];
-
-        return $moduleMessages[$key] ?? "Message key '{$key}' not found in module '{$module}'.";
+        // Fallback or error message if constant not found
+        return "Constant '{$constantName}' not found in ApiConstants.";
     }
 }

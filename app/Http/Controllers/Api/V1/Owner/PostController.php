@@ -8,9 +8,15 @@ use App\Models\Post;
 use App\Http\Requests\Api\V1\StorePostRequest;
 use App\Http\Requests\Api\V1\UpdatePostRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator; // Added for manual validation
+use App\Traits\GeocodingTrait; // Added for geocoding
+use App\Constants\ApiConstants; // Import ApiConstants
+use App\Traits\MessageHelper; // Import MessageHelper trait
 
 class PostController extends Controller
 {
+    use GeocodingTrait, MessageHelper; // Use the GeocodingTrait and MessageHelper
+
     /**
      * Display a listing of the posts.
      *
@@ -27,7 +33,7 @@ class PostController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Posts retrieved successfully',
+            'message' => $this->msg('POSTS_RETRIEVED_SUCCESS'),
             'data' => $posts
         ]);
     }
@@ -43,26 +49,39 @@ class PostController extends Controller
         // Get the currently authenticated owner
         $owner = Auth::user();
 
+        $latitude = $request->input('latitude');
+        $longitude = $request->input('longitude');
+
+        // Call the geocoding trait method
+        $locationDetails = $this->getCoordinatesLocation($latitude, $longitude);
+
+        if (is_null($locationDetails)) {
+            return response()->json([
+                'status' => false,
+                'message' => $this->msg('GEOCoding_ERROR_RETRIEVE_LOCATION')
+            ], 500);
+        }
+
         // Create the post
         $post = Post::create([
             'owner_id'        => $owner->id,
             'title'           => $request->title,
             'description'     => $request->description,
             'required_labours'=> $request->required_labours,
-            'location'        => $request->location,
+            'location'        => $locationDetails['formatted_address'], // Use the fetched formatted address
             'start_date'      => $request->start_date,
             'end_date'        => $request->end_date,
             'work_type'       => $request->work_type,
             'wage_per_day'    => $request->wage_per_day,
             'wage_per_hour'   => $request->wage_per_hour,
-            'status'          => $request->status ?? 'open',
+            'status'          => $request->status ?? ApiConstants::POST_STATUS_OPEN,
         ]);
 
         return response()->json([
             'status' => true,
-            'message' => 'Post created successfully',
+            'message' => $this->msg('POST_CREATED_SUCCESS'),
             'data' => $post
-        ], 201);
+        ], ApiConstants::HTTP_201);
     }
 
     /**
@@ -82,13 +101,13 @@ class PostController extends Controller
         if (!$post) {
             return response()->json([
                 'status' => false,
-                'message' => 'Post not found'
+                'message' => $this->msg('POST_NOT_FOUND')
             ], 404);
         }
 
         return response()->json([
             'status' => true,
-            'message' => 'Post retrieved successfully',
+            'message' => $this->msg('POST_RETRIEVED_SUCCESS'),
             'data' => $post
         ]);
     }
@@ -121,7 +140,7 @@ class PostController extends Controller
         if (!$post) {
             return response()->json([
                 'status' => false,
-                'message' => 'Post not found'
+                'message' => $this->msg('POST_NOT_FOUND')
             ], 404);
         }
 
@@ -164,7 +183,7 @@ class PostController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Post updated successfully',
+            'message' => $this->msg('POST_UPDATED_SUCCESS'),
             'data' => $post,
             'debug' => [
                 'received_description' => $updateData['description'] ?? null,
@@ -193,7 +212,7 @@ class PostController extends Controller
         if (!$post) {
             return response()->json([
                 'status' => false,
-                'message' => 'Post not found'
+                'message' => $this->msg('POST_NOT_FOUND')
             ], 404);
         }
 
@@ -201,7 +220,7 @@ class PostController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Post deleted successfully'
+            'message' => $this->msg('POST_DELETED_SUCCESS')
         ]);
     }
 

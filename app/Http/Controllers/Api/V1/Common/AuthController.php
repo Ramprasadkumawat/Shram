@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Http\Resources\Api\V1\UserResource;
 use App\Http\Requests\Api\V1\StoreUserRequest;
 use App\Traits\MessageHelper;
+use App\Constants\ApiConstants; // Import ApiConstants
 
 class AuthController extends Controller
 {
@@ -39,9 +40,9 @@ class AuthController extends Controller
         $data = new UserResource($user);
 
         return response()->json([
-            'status'  => $this->msg('success', 'STATUS'),
-            'code'    => $this->msg('201', 'HTTP'),
-            'message' => $this->msg('signup_success', 'USERS'),
+            'status'  => $this->msg('success', 'STATUS'), // Consider moving 'success' and 'STATUS' to constants if used often
+            'code'    => ApiConstants::HTTP_201,
+            'message' => $this->msg('SIGNUP_SUCCESS'),
             'token'   => $token,
             'user'    => $data,
         ]);
@@ -57,8 +58,12 @@ class AuthController extends Controller
     {
         // Validate request
         $request->validate([
-            'email' => 'required|email',
+            'email' => ['required', 'email'],
             'password' => 'required'
+        ], [
+            'email.required' => ApiConstants::EMAIL_REQUIRED,
+            'email.email' => ApiConstants::EMAIL_INVALID,
+            'password.required' => ApiConstants::PASSWORD_REQUIRED,
         ]);
 
         // Find user by email
@@ -67,9 +72,9 @@ class AuthController extends Controller
         // Check password
         if (! $user || ! Hash::check($request->password, $user->password)) {
             return response()->json([
-                'status' => $this->msg('failure', 'STATUS'),
-                'error' => $this->msg('Unauthorized', 'AUTH'),
-                'message' => $this->msg('credentials_unauthorised', 'AUTH'),
+                'status' => $this->msg('failure', 'STATUS'), // Consider moving 'failure' and 'STATUS' to constants if used often
+                'error' => $this->msg('UNAUTHORIZED_ERROR'),
+                'message' => $this->msg('CREDENTIALS_UNAUTHORIZED'),
             ], 401);
         }
 
@@ -77,8 +82,8 @@ class AuthController extends Controller
         $token = $user->createToken('mobile')->plainTextToken;
 
         return response()->json([
-            'status' => $this->msg('success', 'STATUS'),
-            'message' => $this->msg('login_success', 'AUTH'),
+            'status' => $this->msg('success', 'STATUS'), // Consider moving 'success' and 'STATUS' to constants if used often
+            'message' => $this->msg('LOGIN_SUCCESS'),
             'token' => $token,
             'user' => $user
         ]);
@@ -94,7 +99,7 @@ class AuthController extends Controller
     {
         $request->user()->currentAccessToken()->delete();
 
-        return response()->json(['message' => $this->msg('logout_success', 'AUTH'),]);
+        return response()->json(['message' => $this->msg('LOGOUT_SUCCESS')]);
     }
 
     /**
@@ -107,7 +112,7 @@ class AuthController extends Controller
     {
         $request->user()->tokens()->delete();
 
-        return response()->json(['message' => $this->msg('logout_all_success', 'AUTH')]);
+        return response()->json(['message' => $this->msg('LOGOUT_ALL_SUCCESS')]);
     }
 
     /**

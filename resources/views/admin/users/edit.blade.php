@@ -5,6 +5,10 @@
 @section('content')
 <h4 class="py-3 mb-4"><span class="text-muted fw-light">User Management /</span> Edit User</h4>
 
+@php
+use App\Constants\AdminConstants;
+@endphp
+
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Edit User</h5>
@@ -61,9 +65,9 @@
                     <label for="type" class="form-label">User Type</label>
                     <select id="type" name="type" class="select2 form-select">
                         <option value="">Select User Type</option>
-                        <option value="admin" {{ (old('type', $user->type) == 'admin') ? 'selected' : '' }}>Admin</option>
-                        <option value="staff" {{ (old('type', $user->type) == 'staff') ? 'selected' : '' }}>Staff</option>
-                        <option value="owner" {{ (old('type', $user->type) == 'owner') ? 'selected' : '' }}>Owner</option>
+                        <option value="{{ AdminConstants::USER_TYPE_ADMIN }}" {{ (old('type', $user->type) == AdminConstants::USER_TYPE_ADMIN) ? 'selected' : '' }}>Admin</option>
+                        <option value="{{ AdminConstants::USER_TYPE_STAFF }}" {{ (old('type', $user->type) == AdminConstants::USER_TYPE_STAFF) ? 'selected' : '' }}>Staff</option>
+                        <option value="{{ AdminConstants::USER_TYPE_OWNER }}" {{ (old('type', $user->type) == AdminConstants::USER_TYPE_OWNER) ? 'selected' : '' }}>Owner</option>
                     </select>
                     @error('type')
                         <div class="text-danger">{{ $message }}</div>

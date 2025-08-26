@@ -3,13 +3,16 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\Owner\UserController;
 use App\Http\Controllers\Api\V1\Owner\PostController;
-use App\Http\Controllers\Api\V1\Common\AuthController; 
+use App\Http\Controllers\Api\V1\Common\AuthController;
+// use App\Http\Controllers\Api\V1\Common\LocationController; 
     
     Route::middleware('api')
     ->group(function () {
         // Auth Routes
         Route::post('/login', [AuthController::class, 'login']);
         Route::post('/register', [AuthController::class, 'register']);
+
+        // Removed Location Routes from here as it requires authentication
     });
 
 
@@ -19,6 +22,9 @@ use App\Http\Controllers\Api\V1\Common\AuthController;
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::post('/logout-all', [AuthController::class, 'logoutAll']);
         Route::get('/me', [AuthController::class, 'me']);
+
+        // Location Routes
+        // Route::get('/common/location', [LocationController::class, 'getLocation']);
 
         // Users Routes
         Route::get('/users', [UserController::class, 'index']);

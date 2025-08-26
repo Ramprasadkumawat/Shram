@@ -5,7 +5,7 @@ namespace App\Http\Requests\Api\V1;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use App\Constants\CommonConstants;
+use App\Constants\ApiConstants; // Import ApiConstants
 
 class StoreUserRequest extends FormRequest
 {
@@ -40,10 +40,24 @@ class StoreUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'first_name.required' => CommonConstants::USERS['first_name_is_required'],
-            'email.unique' => CommonConstants::USERS['email_taken'],
-            'aadhar_number.unique' => CommonConstants::USERS['aadhar_exists'],
-            // Add more messages as needed
+            'first_name.required' => ApiConstants::FIRST_NAME_REQUIRED,
+            'last_name.required' => ApiConstants::LAST_NAME_REQUIRED,
+            'age.required' => ApiConstants::AGE_REQUIRED,
+            'age.integer' => ApiConstants::AGE_INTEGER,
+            'mobile_number.required' => ApiConstants::MOBILE_NUMBER_REQUIRED,
+            'aadhar_number.required' => ApiConstants::AADHAR_NUMBER_REQUIRED,
+            'aadhar_number.unique' => ApiConstants::AADHAR_NUMBER_UNIQUE,
+            'email.required' => ApiConstants::EMAIL_REQUIRED,
+            'email.email' => ApiConstants::EMAIL_INVALID,
+            'email.unique' => ApiConstants::EMAIL_UNIQUE,
+            'type.required' => ApiConstants::TYPE_REQUIRED,
+            'type.string' => ApiConstants::TYPE_STRING,
+            'type.max' => ApiConstants::TYPE_MAX,
+            'type.in' => ApiConstants::TYPE_IN,
+            'password.required' => ApiConstants::PASSWORD_REQUIRED,
+            'password.string' => ApiConstants::PASSWORD_STRING,
+            'password.min' => ApiConstants::PASSWORD_MIN,
+            'password.confirmed' => ApiConstants::PASSWORD_CONFIRMED,
         ];
     }
 
@@ -51,10 +65,10 @@ class StoreUserRequest extends FormRequest
     {
         throw new HttpResponseException(response()->json([
             'status' => false,
-            'code' => CommonConstants::HTTP['422'],
-            'message' => CommonConstants::USERS['validation_errors'],
+            'code' => ApiConstants::HTTP_422,
+            'message' => ApiConstants::VALIDATION_ERRORS,
             'errors' => $validator->errors()
-        ], CommonConstants::HTTP['422']));
+        ], ApiConstants::HTTP_422));
     }
 
 }

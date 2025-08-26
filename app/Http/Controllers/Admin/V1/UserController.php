@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Admin\V1\StoreUserRequest;
 use App\Http\Requests\Admin\V1\UpdateUserRequest;
+use App\Constants\AdminConstants; // Import AdminConstants
 
 class UserController extends Controller
 {
@@ -63,7 +64,7 @@ class UserController extends Controller
         $validated['password'] = Hash::make($validated['password']);
         User::create($validated);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        return redirect()->route('users.index')->with('success', AdminConstants::USER_CREATED_SUCCESS);
     }
 
     public function edit(User $user)
@@ -86,12 +87,12 @@ class UserController extends Controller
         }
         $user->update($validated);
 
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        return redirect()->route('users.index')->with('success', AdminConstants::USER_UPDATED_SUCCESS);
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('users.index')->with('success', AdminConstants::USER_DELETED_SUCCESS);
     }
 }
