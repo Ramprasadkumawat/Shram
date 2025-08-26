@@ -61,6 +61,14 @@
         <i class="{{ $menu->icon }}"></i>
         @endisset
         <div>{{ isset($menu->name) ? __($menu->name) : '' }}</div>
+        @if ($menu->slug === 'usermanagement')
+          @php
+            $totalUserCount = (isset($staffCount) ? $staffCount : 0) + (isset($ownerCount) ? $ownerCount : 0);
+          @endphp
+          @if ($totalUserCount > 0)
+            <div class="badge bg-primary rounded-pill ms-auto">{{ $totalUserCount }}</div>
+          @endif
+        @endif
         @isset($menu->badge)
           <div class="badge bg-{{ $menu->badge[0] }} rounded-pill ms-auto">{{ $menu->badge[1] }}</div>
         @endisset

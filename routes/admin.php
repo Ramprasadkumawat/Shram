@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\V1\AuthController;
 use App\Http\Controllers\Admin\V1\DashboardController;
 use App\Http\Controllers\Admin\V1\UserController;
+use App\Http\Controllers\Admin\V1\PostController;
 use App\Http\Controllers\Admin\V1\LayoutController;
 use App\Http\Controllers\Admin\V1\AccountController;
 
@@ -26,6 +27,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::resource('users', UserController::class);
+    Route::resource('posts', PostController::class);
 });
 
 

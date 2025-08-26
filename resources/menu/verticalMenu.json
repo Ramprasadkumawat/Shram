@@ -22,15 +22,24 @@
       "name": "User-management",
       "icon": "menu-icon tf-icons bx bx-user-circle",
       "slug": "usermanagement",
-      "badge": [
-        "danger",
-        "5"
-      ],
       "submenu": [
         {
           "url": "/admin/users",
           "name": "Users",
           "slug": "user-management"
+        }
+      ]
+    },
+    {
+      "url": "/admin/posts",
+      "name": "Post-management",
+      "icon": "menu-icon tf-icons bx bx-collection",
+      "slug": "postmanagement",
+      "submenu": [
+        {
+          "url": "/admin/posts",
+          "name": "Posts",
+          "slug": "post-management"
         }
       ]
     },
