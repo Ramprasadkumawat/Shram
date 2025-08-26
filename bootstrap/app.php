@@ -6,7 +6,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Dotenv\Dotenv;
 
 // ✅ detect APP_ENV and load correct .env file before app creates
-$envFile = '.env.' . ($_SERVER['APP_ENV'] ?? 'production');
+$envFile = '.env.' . ($_SERVER['APP_ENV'] ?? 'local');
 if (file_exists(dirname(__DIR__) . '/' . $envFile)) {
     Dotenv::createImmutable(dirname(__DIR__), $envFile)->safeLoad();
 } else {

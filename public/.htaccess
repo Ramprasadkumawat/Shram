@@ -5,7 +5,7 @@
 
     RewriteEngine On
 
-    RewriteRule .* - [E=APP_ENV:production]
+    # RewriteRule .* - [E=APP_ENV:local]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
