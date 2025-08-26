@@ -25,7 +25,9 @@ class ApiConstants
     public const POST_STATUS_IN_PROGRESS = 'in_progress';
 
     // Auth related messages
-    public const LOGIN_SUCCESS = 'login_success';
+    public const SUCCESS = 'success';
+    public const FAILURE = 'failure';
+    public const LOGIN_SUCCESS = 'You have successfully logged in';
     public const SIGNUP_SUCCESS = 'signup_success';
     public const LOGOUT_SUCCESS = 'logout_success';
     public const LOGOUT_ALL_SUCCESS = 'logout_all_success';

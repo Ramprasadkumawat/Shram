@@ -40,7 +40,7 @@ class AuthController extends Controller
         $data = new UserResource($user);
 
         return response()->json([
-            'status'  => $this->msg('success', 'STATUS'), // Consider moving 'success' and 'STATUS' to constants if used often
+            'status'  => $this->msg('SUCCESS'),
             'code'    => ApiConstants::HTTP_201,
             'message' => $this->msg('SIGNUP_SUCCESS'),
             'token'   => $token,
@@ -72,7 +72,7 @@ class AuthController extends Controller
         // Check password
         if (! $user || ! Hash::check($request->password, $user->password)) {
             return response()->json([
-                'status' => $this->msg('failure', 'STATUS'), // Consider moving 'failure' and 'STATUS' to constants if used often
+                'status' => $this->msg('FAILURE'),
                 'error' => $this->msg('UNAUTHORIZED_ERROR'),
                 'message' => $this->msg('CREDENTIALS_UNAUTHORIZED'),
             ], 401);
@@ -82,7 +82,7 @@ class AuthController extends Controller
         $token = $user->createToken('mobile')->plainTextToken;
 
         return response()->json([
-            'status' => $this->msg('success', 'STATUS'), // Consider moving 'success' and 'STATUS' to constants if used often
+            'status' => $this->msg('SUCCESS'),
             'message' => $this->msg('LOGIN_SUCCESS'),
             'token' => $token,
             'user' => $user
