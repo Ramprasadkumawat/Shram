@@ -130,7 +130,7 @@ class StaffOwnerSeeder extends Seeder
                 'mobile_number' => '9876543211',
                 'aadhar_number' => '222222222222',
                 'email' => 'john.manager@shram.com',
-                'password' => 'john123',
+                'password' => 'john123',  //hello test
                 'type' => 'admin',
             ],
             [
