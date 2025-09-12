@@ -57,7 +57,7 @@ use App\Constants\AdminConstants;
           <div class="card-body">
             <div class="card-title d-flex align-items-start justify-content-between">
               <div class="avatar flex-shrink-0">
-                <img src="{{asset('assets/img/icons/unicons/briefcase.png')}}" alt="Staff Icon" class="rounded">
+                <img src="{{asset('assets/img/icons/unicons/staf-users.png')}}" alt="Staff Icon" class="rounded">
               </div>
               <div class="dropdown">
                 <button class="btn p-0" type="button" id="staffCountCard" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -70,7 +70,7 @@ use App\Constants\AdminConstants;
             </div>
             <div class="text-content">
                 <span class="fw-semibold d-block mb-1">{{ AdminConstants::STAFF_COUNT_TITLE }}</span>
-                <h3 class="card-title mb-2">{{ $staffCount }}</h3>
+                <h3 class="card-title mb-2" onclick="window.location.href='{{ route('users.index', ['search' => AdminConstants::USER_TYPE_STAFF, 'sort_by' => 'type', 'sort_order' => 'asc']) }}'" style="cursor: pointer;">{{ $staffCount }}</h3>
                 <small class="text-success fw-semibold"><i class='bx bx-user'></i> {{ AdminConstants::STAFF_TOTAL_TEXT }}</small>
             </div>
           </div>
@@ -81,7 +81,7 @@ use App\Constants\AdminConstants;
           <div class="card-body">
             <div class="card-title d-flex align-items-start justify-content-between">
               <div class="avatar flex-shrink-0">
-                <img src="{{asset('assets/img/icons/unicons/crown.png')}}" alt="Owner Icon" class="rounded">
+                <img src="{{asset('assets/img/icons/unicons/staf-users.png')}}" alt="Owner Icon" class="rounded">
               </div>
               <div class="dropdown">
                 <button class="btn p-0" type="button" id="ownerCountCard" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -94,7 +94,7 @@ use App\Constants\AdminConstants;
             </div>
             <div class="text-content">
                 <span class="fw-semibold d-block mb-1">{{ AdminConstants::OWNER_COUNT_TITLE }}</span>
-                <h3 class="card-title mb-2">{{ $ownerCount }}</h3>
+                <h3 class="card-title mb-2" onclick="window.location.href='{{ route('users.index', ['search' => AdminConstants::USER_TYPE_OWNER, 'sort_by' => 'type', 'sort_order' => 'asc']) }}'" style="cursor: pointer;">{{ $ownerCount }}</h3>
                 <small class="text-success fw-semibold"><i class='bx bx-user-pin'></i> {{ AdminConstants::OWNER_TOTAL_TEXT }}</small>
             </div>
           </div>

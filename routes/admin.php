@@ -28,6 +28,7 @@ Route::middleware(['auth:admin'])->group(function () {
 
     Route::resource('users', UserController::class);
     Route::resource('posts', PostController::class);
+
 });
 
 
