@@ -76,6 +76,7 @@ class ApiConstants
     public const HTTP = 'HTTP';
 
     // staff_messages
+    public const USERS_LIST_SUCCESS = 'Users list fetched successfully!';
     public const STAFF_LIST_SUCCESS = 'Staff list fetched successfully!';
     public const STAFF_LIST_NOT_FOUND = 'Staff list not found!';
     public const STAFF_LIST_EMPTY = 'Staff list is empty!';

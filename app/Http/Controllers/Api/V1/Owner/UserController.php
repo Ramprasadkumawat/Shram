@@ -37,14 +37,16 @@ class UserController extends Controller
                 'data' => $data,
             ]);
         }else{
+            $staffUsers = User::where('type', ['staff','owner'])
+                ->get();
+            $data = UserResource::collection($staffUsers);
+    
             return response()->json([
-                'status' => $this->msg('FAILURE', 'STATUS'),
-                'code' => $this->msg('HTTP_422', 'HTTP'),
-                'message' => $this->msg('VALIDATION_ERRORS', 'USERS'),
-                'errors' => [
-                    'type' => [$this->msg('TYPE_IS_REQUIRED', 'USERS')],
-                ],
-            ], 422);
+                'status' => $this->msg('SUCCESS', 'STATUS'),
+                'code' => $this->msg('HTTP_200', 'HTTP'),
+                'message' => $this->msg('USERS_LIST_SUCCESS', 'USERS'), // You can define this in constants
+                'data' => $data,
+            ]);
         }
     }
 }
