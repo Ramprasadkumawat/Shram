@@ -31,18 +31,18 @@ class UserController extends Controller
             $data = UserResource::collection($staffUsers);
     
             return response()->json([
-                'status' => $this->msg('success', 'STATUS'),
-                'code' => $this->msg('200', 'HTTP'),
-                'message' => $this->msg('staff_list_success', 'USERS'), // You can define this in constants
+                'status' => $this->msg('SUCCESS', 'STATUS'),
+                'code' => $this->msg('HTTP_200', 'HTTP'),
+                'message' => $this->msg('STAFF_LIST_SUCCESS', 'USERS'), // You can define this in constants
                 'data' => $data,
             ]);
         }else{
             return response()->json([
-                'status' => $this->msg('failure', 'STATUS'),
-                'code' => $this->msg('422', 'HTTP'),
-                'message' => $this->msg('validation_errors', 'USERS'),
+                'status' => $this->msg('FAILURE', 'STATUS'),
+                'code' => $this->msg('HTTP_422', 'HTTP'),
+                'message' => $this->msg('VALIDATION_ERRORS', 'USERS'),
                 'errors' => [
-                    'type' => [$this->msg('type_is_required', 'USERS')],
+                    'type' => [$this->msg('TYPE_IS_REQUIRED', 'USERS')],
                 ],
             ], 422);
         }

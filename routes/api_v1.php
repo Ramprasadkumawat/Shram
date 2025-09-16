@@ -2,7 +2,7 @@
 use App\Http\Controllers\Api\V1\Owner\UserController;
 use App\Http\Controllers\Api\V1\Owner\PostController;
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'token.inactivity'])->group(function () {
     // Users Routes
     Route::get('/users', [UserController::class, 'index']);
 

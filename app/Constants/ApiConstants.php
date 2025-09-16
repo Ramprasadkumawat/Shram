@@ -26,6 +26,7 @@ class ApiConstants
 
     // Auth related messages
     public const SUCCESS = 'success';
+    public const STATUS = 'status';
     public const FAILURE = 'failure';
     public const LOGIN_SUCCESS = 'You have successfully logged in';
     public const SIGNUP_SUCCESS = 'signup_success';
@@ -56,6 +57,7 @@ class ApiConstants
     public const AADHAR_NUMBER_UNIQUE = 'The Aadhar number has already been taken.';
     public const EMAIL_UNIQUE = 'The email has already been taken.';
     public const TYPE_REQUIRED = 'The type field is required.';
+    public const TYPE_IS_REQUIRED = 'Type is required!';
     public const TYPE_STRING = 'The type must be a string.';
     public const TYPE_MAX = 'The type may not be greater than 50 characters.';
     public const TYPE_IN = 'The selected type is invalid.';
@@ -70,4 +72,17 @@ class ApiConstants
     // HTTP Status Codes (These might be better in a general CommonConstants if such a file exists/is desired)
     public const HTTP_422 = 422;
     public const HTTP_201 = 201;
+    public const HTTP_200 = 200;
+    public const HTTP = 'HTTP';
+
+    // staff_messages
+    public const STAFF_LIST_SUCCESS = 'Staff list fetched successfully!';
+    public const STAFF_LIST_NOT_FOUND = 'Staff list not found!';
+    public const STAFF_LIST_EMPTY = 'Staff list is empty!';
+
+    // user_messages
+    public const USERS = 'Users';
+    public const USER_LIST_SUCCESS = 'User list fetched successfully!';
+    public const USER_LIST_NOT_FOUND = 'User list not found!';
+    public const USER_LIST_EMPTY = 'User list is empty!';
 }
